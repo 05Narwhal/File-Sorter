@@ -1,0 +1,31 @@
+{
+    "folder_names": [
+        "sorted_files",
+        "RAW",
+        "videos",
+        "photos",
+        "apps",
+        "plain_text",
+        "zipped_files",
+        "install_files",
+        "pdf_documents",
+        "python_code",
+        "ms_excel_spreadsheets",
+        "ms_powerpoint_presentations",
+        "android_applications",
+        "web_files",
+        "ms_word_docs",
+        "torrents",
+        "Minecraft_mods",
+        "books",
+        "audio_files",
+        "local",
+        "other"
+    ],
+    "pkg installed": true,
+    "packages": [
+        "tkmacosx",
+        "pillow"
+    ],
+    "last_dir": "D:/temp dslr footage"
+}
