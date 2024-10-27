@@ -6,7 +6,7 @@ This is a file sorter for python. It was made by me (JL Studios) and it is for s
 
 # NOTE!!!!!!
 
-`**This is a Development version of the project. For a stable release go to the branch 'version-<version number>' with the newest version release number**`
+**`This is a Development version of the project. For a stable release go to the branch 'version-<version number>' with the newest version release number`**
 
 <hr/>
 
@@ -22,13 +22,13 @@ This is a file sorter for python. It was made by me (JL Studios) and it is for s
 
 ## How to use
 
-- The button `**Make separate folder in dir**` toggles if the sorted files will get sorted in the selected path / directory or if they go into a new folder with the name **Sorted files**
+- The button **`Make separate folder in dir`** toggles if the sorted files will get sorted in the selected path / directory or if they go into a new folder with the name **Sorted files**
 
-- If the button `**Sort all dirs in this directory separately**` is toggled then it will separately sort all the folders in the selected path / directory. If not toggled it will sort all the files / folders in the currently selected path / directory
+- If the button **`Sort all dirs in this directory separately`** is toggled then it will separately sort all the folders in the selected path / directory. If not toggled it will sort all the files / folders in the currently selected path / directory
 
-- The `**Select directory**` opens a folder selection dialog to select the path / directory to sort
+- The **`Select directory`** opens a folder selection dialog to select the path / directory to sort
 
-- The `**SORT**` button sorts the selected path / directory
+- The **`SORT`** button sorts the selected path / directory
 
 ## Future plans
 
