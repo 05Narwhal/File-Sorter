@@ -1,9 +1,9 @@
 {
     "folder_names": [
-        "sorted_files",
-        "RAW",
+        "sorted",
+        "raw",
         "videos",
-        "photos",
+        "pictures",
         "apps",
         "plain_text",
         "zipped_files",
@@ -22,10 +22,10 @@
         "local",
         "other"
     ],
-    "pkg installed": true,
+    "pkg installed": false,
     "packages": [
         "tkmacosx",
         "pillow"
     ],
-    "last_dir": "D:/temp dslr footage"
+    "last_dir": "C:/"
 }

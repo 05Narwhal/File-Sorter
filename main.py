@@ -140,6 +140,7 @@ json_file = 'stored_data.json'
 
 if read_json('package.json') != package_nn:
     logger.error("This is a cracked version. Program auto closed.")
+    input("Press Enter to continue...")
     sys.exit()
 else:
     logger.info("License correct!")
@@ -239,6 +240,13 @@ def sort_d_ds():
 
     else:
         logger.info("Set the dirs to sort seperately in this directory to False")
+
+def CopyRawFromPicCheck():
+    if CheckSortFromPic.get():
+        logger.info("Set the raw copy to True")
+
+    else:
+        logger.info("Set the raw copy to False")
 
 def get_immediate_subdirectories(directory):
     subdirectories = []
@@ -394,6 +402,46 @@ def sorting_alg(maindir):
         logger.error(f"Sorting failed: {e}")
         return False
 
+def remove_extension(file_path):
+    """
+    Remove the file extension from a file path.
+    
+    Args:
+        file_path (str): The file path to remove the extension from.
+        
+    Returns:
+        str: The file path with the extension removed.
+    """
+    return os.path.splitext(file_path)[0]
+
+def copyRawFromPic(maindir):
+    picDir = maindir
+    otherDir = os.path.dirname(picDir)+'/'+fl_names[1]
+
+    if os.path.exists(otherDir) == False:
+        logger.error(f"Folder for raw files doesn't exist")
+        return False
+    
+    else:
+        logger.info(f"Folder for raw files exists")
+        pictures = []
+
+        for file in os.listdir(picDir):
+            if file.lower().endswith('.jpg') or file.lower().endswith('.png') or file.lower().endswith('.jpeg'):
+                pictures.append(file)
+        
+        print(pictures)
+
+        for pic in pictures:
+            try:
+                rawFile = remove_extension(pic)+'.nef'
+                shutil.copyfile(otherDir + '/' + rawFile, picDir + '/' + rawFile)
+                logger.info(f"Copying file: {pic}")
+            except Exception as e:
+                logger.error(f"Failed to copy file: {e}")
+                return False
+    return True
+
 def sort_files():
     logger.info("Changing input directory...")
 
@@ -415,7 +463,17 @@ def sort_files():
 
         logger.info("Valid directory, copy started")
 
-        if check_sort_deep.get():
+        if CheckSortFromPic.get():
+            num_items = len(os.listdir(maindir))
+            result = copyRawFromPic(maindir)
+
+            if result:
+                logger.info("Copying raw files done")
+                dirlabel.configure(text="Copying raw files done")
+            else:
+                logger.error("Copying raw files failed")
+
+        elif check_sort_deep.get():
             for indx, i in enumerate(get_immediate_subdirectories(maindir)):
                 num_items += len(os.listdir(i))
 
@@ -514,7 +572,7 @@ def on_entry_click(event):
     if entry_drp.get() == 'Enter folder name here...':
        entry_drp.delete(0, tk.END) 
        entry_drp.insert(0, '') 
-       entry_drp.configure(fg = 'black')
+       entry_drp.configure(fg = 'white')
 
 def on_focusout(event):
     if entry_drp.get() == '':
@@ -557,6 +615,7 @@ Label(
     frame_tp, 
     text="File Sorter", 
     font=(font, 30), 
+    fg="#0069EE",
     highlightthickness=0
 ).pack()
 
@@ -585,15 +644,17 @@ dirlabel = Label(
     frame_t_l, 
     text="Click select dirctory to begin", 
     font=(font, 15), 
+    fg="#0069EE",
     highlightthickness=0
 )
 
 entry.grid(row=1, column=0, sticky='nswe', padx=5, pady=10)
 slc_btn.grid(row=1, column=1, sticky='nse', padx=5, pady=10)
 
-check_sort     = tk.BooleanVar(value=False)
-check_sort_deep= tk.BooleanVar(value=False)
-selected_value = tk.StringVar()
+check_sort       = tk.BooleanVar(value=False)
+check_sort_deep  = tk.BooleanVar(value=False)
+CheckSortFromPic = tk.BooleanVar(value=False)
+selected_value   = tk.StringVar()
 
 sort_t_fldr = Checkbutton(
     frame_t_l, 
@@ -608,6 +669,14 @@ sort_d_dss = Checkbutton(
     text="Sort all dirs in this directory seperately", 
     command=sort_d_ds, 
     variable=check_sort_deep, 
+    highlightthickness=0
+)
+
+getRawFromPic = Checkbutton(
+    frame_t_l, 
+    text="Copy and paste the raw images of the pngs and jpgs", 
+    command=CopyRawFromPicCheck, 
+    variable=CheckSortFromPic, 
     highlightthickness=0
 )
 
@@ -700,16 +769,17 @@ entry_drp.grid(row=1, column=0, padx=10, pady=10, sticky='nswe')
 btn_drp.grid(row=1, column=1, padx=10, pady=10, sticky='nw')
 sort_t_fldr.grid(row=2, column=0, padx=10, pady=10, sticky='nw')
 sort_d_dss.grid(row=3, column=0, padx=10, pady=10, sticky='nw')
+getRawFromPic.grid(row=4, column=0, padx=10, pady=10, sticky='nw')
 
 sort.grid(row=0, column=0, columnspan=2, sticky="nswe", padx=5)
-dirlabel.grid(row=4, column=0, padx=10, pady=10, columnspan=2, sticky="nw")
+dirlabel.grid(row=5, column=0, padx=10, pady=10, columnspan=2, sticky="nw")
 
 canvas = tk.Canvas(frame_t_r, width=260, height=200)
 
 speed_lbl = Label(
     frame_t_r,
     font=(font, 14),
-    text="Speed: ?s per 10.000 files"
+    text="Speed: ?s per 10.000 files",
 )
 canvas.pack()
 speed_lbl.pack(padx=10, pady=10)
