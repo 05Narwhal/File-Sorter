@@ -2,6 +2,14 @@
 
 This is a file sorter for python. It was made by me (JL Studios) and it is for sorting folders and files in a specific directory
 
+<hr/>
+
+# NOTE!!!!!!
+
+`**This is a Development version of the project. For a stable release go to the branch 'version-<version number>' with the newest version release number**`
+
+<hr/>
+
 ## Installation
 
 1. To install this program first go to https://www.python.org/downloads/release/python-3127/
